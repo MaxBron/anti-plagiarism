@@ -5,19 +5,19 @@ import ast
 
 # расстояние Левенштейна
 def levenstein(str_1, str_2):
-    x, y = len(str_1), len(str_2)  # длины текстов
-    if x > y:
+    l, m = len(str_1), len(str_2)  # длины текстов
+    if l > m:
         str_1, str_2 = str_2, str_1
-        x, y = y, x
-    current_row = range(x + 1)
-    for i in range(1, y + 1):
-        previous_row, current_row = current_row, [i] + [0] * x
-        for j in range(1, x + 1):
+        l, m = m, l
+    current_row = range(l + 1)
+    for i in range(1, m + 1):
+        previous_row, current_row = current_row, [i] + [0] * l
+        for j in range(1, l + 1):
             add, delete, change = previous_row[j] + 1, current_row[j - 1] + 1, previous_row[j - 1]
             if str_1[j - 1] != str_2[i - 1]:
                 change += 1
             current_row[j] = min(add, delete, change)
-    return current_row[x]
+    return current_row[l]
 
 
 input_file = open(sys.argv[1])
